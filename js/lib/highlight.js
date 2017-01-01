@@ -581,7 +581,7 @@ https://highlightjs.org/
       var resultPre = document.createElement('pre');
       resultPre.innerHTML = result.value;
       var linesPre = document.createElement('pre');
-      var lines = escape(text).replace(/^/gm, '<span class="line"></span>');
+      var lines = escape(text).replace(/^(.*)$/gm, '<span class="line">$1</span>');
       linesPre.innerHTML = lines;
       result.value = mergeStreams(nodeStream(linesPre), nodeStream(resultPre), text);
     }
@@ -589,6 +589,9 @@ https://highlightjs.org/
     result.value = fixMarkup(result.value);
     block.innerHTML = result.value;
     block.className = buildClassName(block.className, language, result.language);
+    if (options.lineNumbers) {
+      block.classList.add("line-digits-" + Math.ceil(Math.log10(block.getElementsByClassName("line").length)));
+    }
     block.result = {
       language: result.language,
       re: result.relevance

@@ -86,19 +86,41 @@ pre {
 
 pre .line {
   counter-increment: lines;
-  -webkit-user-select: none;
+  padding-left: calc(2ch + 1em);
+  margin-left: 0.5em;
+  position: relative;
+  display: inline-block;
 }
 
 pre .line::before {
   content: counter(lines);
+  -webkit-user-select: none;
   text-align: right;
   display: inline-block;
-  width: 2em;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  width: 2ch;
   padding-right: 0.5em;
   margin-right: 0.5em;
   color: #BBB;
   border-right: solid 1px;
 }
+
+pre .line:empty::after {
+  content: '\200B';
+  -webkit-user-select: none;
+}
+
+pre.line-digits-3 .line { padding-left: calc(3ch + 1em) }
+pre.line-digits-4 .line { padding-left: calc(4ch + 1em) }
+pre.line-digits-5 .line { padding-left: calc(5ch + 1em) }
+pre.line-digits-6 .line { padding-left: calc(6ch + 1em) }
+pre.line-digits-3 .line::before { width: 3ch }
+pre.line-digits-4 .line::before { width: 4ch }
+pre.line-digits-5 .line::before { width: 5ch }
+pre.line-digits-6 .line::before { width: 6ch }
 
 .wrap-true {
   word-wrap: break-word !important;
